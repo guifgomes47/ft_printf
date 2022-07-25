@@ -6,7 +6,7 @@
 /*   By: guilhfer <guilhfer@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 15:16:17 by guifgomes         #+#    #+#             */
-/*   Updated: 2022/07/25 12:41:32 by guilhfer         ###   ########.fr       */
+/*   Updated: 2022/07/25 13:10:31 by guilhfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ size_t		ft_strlen(const char *str);
 int			ft_putchar(int c);
 void		ft_putstr_fd(char *s, int fd);
 //|file: ft_utils_2.c
+int			num_size(int n);
 char		*ft_itoa(int n);
+int			uns_base_len(unsigned long int n, int base_len);
 char		*ft_ulitoa_base(unsigned long int n, char *base);
 #endif

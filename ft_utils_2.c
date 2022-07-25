@@ -6,11 +6,26 @@
 /*   By: guilhfer <guilhfer@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:15:03 by guilhfer          #+#    #+#             */
-/*   Updated: 2022/07/25 12:21:23 by guilhfer         ###   ########.fr       */
+/*   Updated: 2022/07/25 13:09:01 by guilhfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	num_size(int n)
+{
+	int	len;
+
+	len = 0;
+	if (n <= 0)
+		len = 1;
+	while (n)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
 
 char	*ft_itoa(int n)
 {
@@ -19,14 +34,11 @@ char	*ft_itoa(int n)
 	size_t	len;
 
 	nbr = n;
-	len = n > 0 ? 0 : 1;
-	nbr = nbr > 0 ? nbr : -nbr;
-	while (n)
-	{
-		n /= 10;
-		len++;
-	}
-	if (!(dest = (char *)malloc(len + 1)))
+	if (nbr < 0)
+		nbr = -nbr;
+	len = num_size(n);
+	dest = (char *)malloc(len + 1);
+	if (!dest)
 		return (0);
 	dest[len--] = '\0';
 	while (nbr > 0)
@@ -41,19 +53,31 @@ char	*ft_itoa(int n)
 	return (dest);
 }
 
+int	uns_base_len(unsigned long int n, int base_len)
+{
+	unsigned long int	len;
+
+	len = 0;
+	if (n == 0)
+		len = 1;
+	while (n)
+	{
+		n /= base_len;
+		len++;
+	}
+	return (len);
+}
+
 char	*ft_ulitoa_base(unsigned long int n, char *base)
 {
 	char				*dest;
 	int					b_len;
 	int					len;
-	unsigned long int	nbr;
 
 	b_len = ft_strlen(base);
-	nbr = n;
-	len = 1;
-	while (nbr /= b_len)
-		len++;
-	if (!(dest = (char *)malloc(len + 1)))
+	len = uns_base_len(n, b_len);
+	dest = (char *)malloc(len + 1);
+	if (!dest)
 		return (NULL);
 	dest[len--] = '\0';
 	while (n > 0)

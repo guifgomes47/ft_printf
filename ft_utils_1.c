@@ -6,7 +6,7 @@
 /*   By: guilhfer <guilhfer@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 18:03:48 by guilhfer          #+#    #+#             */
-/*   Updated: 2022/07/25 12:21:01 by guilhfer         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:30:52 by guilhfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_info(t_info *info)
 {
 	info->type = 0;
 }
+
 size_t	ft_strlen(const char *str)
 {
 	size_t	count;
