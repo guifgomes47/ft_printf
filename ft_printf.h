@@ -6,7 +6,7 @@
 /*   By: guilhfer <guilhfer@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 15:16:17 by guifgomes         #+#    #+#             */
-/*   Updated: 2022/07/25 12:20:37 by guilhfer         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:41:32 by guilhfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			ft_printf(const char *string, ...);
 int			ft_vfprintf(va_list args, const char *format);
 int			print_type(va_list args, t_info *info);
 //|file: ft_printf_c_str.c
-int			print_char(char c, t_info *info);
+int			print_char(char c);
 int			print_string(char *str);
 //|file: ft_printf_digits.c
 int			print_digits(int d);

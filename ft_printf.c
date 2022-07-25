@@ -6,7 +6,7 @@
 /*   By: guilhfer <guilhfer@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 15:04:11 by guifgomes         #+#    #+#             */
-/*   Updated: 2022/07/25 12:20:02 by guilhfer         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:41:00 by guilhfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	print_type(va_list args, t_info *info)
 
 	len = 0;
 	type = info->type;
-	if (type == 'c' || type == '%')
-		len = print_char(va_arg(args, int), info);
+	if (type == 'c')
+		len = print_char(va_arg(args, int));
 	if (type == 'd' || type == 'i')
 		len = print_digits(va_arg(args, int));
 	if (type == 'u')
@@ -68,5 +68,7 @@ int	print_type(va_list args, t_info *info)
 		len = print_hexa(va_arg(args, unsigned int), info);
 	if (type == 'p')
 		len = print_pointer(va_arg(args, unsigned long int));
+	if (type == '%')
+		len += write(1, "%", 1);
 	return (len);
 }
