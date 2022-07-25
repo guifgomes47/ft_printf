@@ -6,57 +6,62 @@
 /*   By: guilhfer <guilhfer@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:15:03 by guilhfer          #+#    #+#             */
-/*   Updated: 2022/07/22 23:45:03 by guilhfer         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:21:23 by guilhfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
-size_t	ft_strlen(const char *str)
+char	*ft_itoa(int n)
 {
-	size_t	count;
+	char	*dest;
+	long	nbr;
+	size_t	len;
 
-	count = 0;
-	while (str[count])
+	nbr = n;
+	len = n > 0 ? 0 : 1;
+	nbr = nbr > 0 ? nbr : -nbr;
+	while (n)
 	{
-		count++;
+		n /= 10;
+		len++;
 	}
-	return (count);
-}
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n)
+	if (!(dest = (char *)malloc(len + 1)))
+		return (0);
+	dest[len--] = '\0';
+	while (nbr > 0)
 	{
-		((char *)dest)[i] = ((char *)src)[i];
-		i++;
+		dest[len--] = nbr % 10 + '0';
+		nbr /= 10;
 	}
+	if (len == 0 && dest[1] == '\0')
+		dest[0] = '0';
+	else if (len == 0 && dest[1] != '\0')
+		dest[0] = '-';
 	return (dest);
 }
 
-char	*ft_uitoa_base(unsigned int n, char *base)
+char	*ft_ulitoa_base(unsigned long int n, char *base)
 {
-	char	*dest;
-	int		b_len;
-	int		len;
-	int		nbr;
+	char				*dest;
+	int					b_len;
+	int					len;
+	unsigned long int	nbr;
 
 	b_len = ft_strlen(base);
 	nbr = n;
 	len = 1;
 	while (nbr /= b_len)
 		len++;
-	dest = (char *)malloc(len + 1);
-	if (!dest)
+	if (!(dest = (char *)malloc(len + 1)))
 		return (NULL);
-	while (--len >= 0)
+	dest[len--] = '\0';
+	while (n > 0)
 	{
-		dest[len] = base[n % b_len];
+		dest[len--] = base[n % b_len];
 		n /= b_len;
 	}
+	if (len == 0 && dest[1] == '\0')
+		dest[0] = '0';
 	return (dest);
 }

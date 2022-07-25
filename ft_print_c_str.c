@@ -6,7 +6,7 @@
 /*   By: guilhfer <guilhfer@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:21:44 by guilhfer          #+#    #+#             */
-/*   Updated: 2022/07/22 17:00:03 by guilhfer         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:19:37 by guilhfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	print_string(char *str)
 	int	len;
 
 	len = 0;
+	if (!str)
+		str = "(null)";
 	while (str[len])
 	{
 		write(1, &str[len++], 1);

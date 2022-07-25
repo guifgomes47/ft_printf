@@ -6,43 +6,48 @@
 /*   By: guilhfer <guilhfer@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 18:50:22 by guilhfer          #+#    #+#             */
-/*   Updated: 2022/07/22 23:59:13 by guilhfer         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:19:41 by guilhfer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_digits(int d, t_info *info)
+int	print_digits(int d)
 {
-	int	i;
+	int		i;
+	char	*digits;
 
-	if (info->type == 'd' || info->type == 'i')
-		ft_putstr_fd(ft_itoa(d), 1);
-	if (info->type == 'u')
-		ft_putstr_fd(ft_uitoa_base(d, DIGITS), 1);
 	i = 0;
-	while (d)
-	{
-		d /= 10;
-		i++;
-	}
-	return (i + 1);
+	digits = ft_itoa(d);
+	i += write(1, digits, ft_strlen(digits));
+	free(digits);
+	return (i);
 }
 
-int	print_hexa(int d, t_info *info)
+int	print_uns_num(unsigned int d)
 {
-	int	i;
+	int		i;
+	char	*digits;
 
-	if (info->type == 'x')
-		ft_putstr_fd(ft_uitoa_base(d, HEXALOW), 1);
-	if (info->type == 'X')
-		ft_putstr_fd(ft_uitoa_base(d, HEXAUPP), 1);
 	i = 0;
-	while (d)
-	{
-		d /= 16;
-		i++;
-	}
+	digits = (ft_ulitoa_base(d, DIGITS));
+	i += write(1, digits, ft_strlen(digits));
+	free(digits);
+	return (i);
+}
+
+int	print_hexa(unsigned int d, t_info *info)
+{
+	int		i;
+	char	*hexa;
+
+	i = 0;
+	if (info->type == 'x')
+		hexa = (ft_ulitoa_base(d, HEXALOW));
+	if (info->type == 'X')
+		hexa = (ft_ulitoa_base(d, HEXAUPP));
+	i += write(1, hexa, ft_strlen(hexa));
+	free(hexa);
 	return (i);
 }
 
@@ -51,33 +56,18 @@ int	print_pointer(unsigned long int d)
 	int		i;
 	char	*pointer;
 
-	pointer = ft_ulitoa_base(d, HEXALOW);
 	i = 0;
-	i += write(1, "0x", 2);
-	i += ft_strlen(pointer);
-	ft_putstr_fd(pointer, 1);
-	return (i);
-}
-
-char	*ft_ulitoa_base(unsigned long int n, char *base)
-{
-	char				*dest;
-	int					b_len;
-	int					len;
-	unsigned long int	nbr;
-
-	b_len = ft_strlen(base);
-	nbr = n;
-	len = 0;
-	while (nbr /= b_len)
-		len++;
-	dest = (char *)malloc(len + 1);
-	if (!dest)
-		return (NULL);
-	while (--len >= 0)
+	if (!d)
 	{
-		dest[len] = base[n % b_len];
-		n /= b_len;
+		i += write(1, "(nil)", 5);
+		return (i);
 	}
-	return (dest);
+	else
+	{
+		i += write(1, "0x", 2);
+		pointer = ft_ulitoa_base(d, HEXALOW);
+	}
+	i += write(1, pointer, ft_strlen(pointer));
+	free(pointer);
+	return (i);
 }
